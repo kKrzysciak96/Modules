@@ -24,6 +24,11 @@ dependencies {
     implementation("io.ktor:ktor-client-cio:2.3.3")
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
+
+    val koin_version = "3.5.3"
+
+    implementation("io.insert-koin:koin-core:$koin_version")
+//    implementation ("io.insert-koin:koin-androidx-compose:$koin_version")
 }
 
 tasks.withType<KotlinCompile> {
