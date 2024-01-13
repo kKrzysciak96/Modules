@@ -1,0 +1,31 @@
+CREATE TABLE IF NOT EXISTS ModuleEntity(
+id TEXT NOT NULL PRIMARY KEY,
+name TEXT NOT NULL,
+comment TEXT NOT NULL,
+incrementation INTEGER NOT NULL,
+newIncrementation INTEGER,
+epochDay INTEGER NOT NULL,
+isSkipped INTEGER NOT NULL CHECK (isSkipped IN (0, 1)),
+timeStamp INTEGER NOT NULL
+);
+
+getModuleById:
+SELECT *
+FROM ModuleEntity
+WHERE id =:id;
+
+getAllModules:
+SELECT *
+FROM ModuleEntity;
+
+addModule:
+INSERT OR REPLACE
+INTO ModuleEntity
+VALUES (?,?,?,?,?,?,?,?);
+
+deleteModuleById:
+DELETE FROM ModuleEntity
+WHERE id = :id;
+
+dropDatabase:
+DELETE FROM ModuleEntity;
