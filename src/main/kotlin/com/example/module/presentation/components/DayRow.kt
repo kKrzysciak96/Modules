@@ -17,9 +17,11 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.BaselineShift
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.module.presentation.model.ModuleDisplayable
+import java.awt.Toolkit.getDefaultToolkit
 import java.time.LocalDate
 import java.util.*
 
@@ -128,6 +130,7 @@ private fun ModuleItem(
     onActionToggleSkippedClick: (ModuleDisplayable) -> Unit,
 ) {
 //    val height: Dp = (LocalConfiguration.current.screenHeightDp / 2).dp
+    val height: Dp = getDefaultToolkit().screenSize.height.dp
     Box(
         modifier = modifier.combinedClickable(
             onClick = { onModuleClick(module.id) },
@@ -179,45 +182,45 @@ private fun ModuleItem(
             }
         }
 
-//        ModuleActionsMenu(
-//            onDismissRequest = onDropdownMenuDismiss,
-//            module = module,
-//            onActionDeleteClick = onActionDeleteClick,
-//            onActionEditIncrementationClick = onActionEditIncrementationClick,
-//            onActionAddNewIncrementationClick = onActionAddNewIncrementationClick,
-//            onActionAddNewIncrementationFromDateClick = onActionAddNewIncrementationFromDateClick,
-//            onActionToggleSkippedClick = onActionToggleSkippedClick,
-//        )
-//
-//        IncrementationDropdownMenu(
-//            modifier = Modifier.height(height),
-//            expanded = module.isAddNewIncrementDropdownMenuVisible,
-//            onDismissRequest = onAddNewIncrementationDropdownMenuDismiss,
-//            onClick = { number ->
-//                val newModule = module.copy(newIncrementation = number)
-//                onAddNewIncrementation(newModule)
-//            },
-//            isResetAvailable = true,
-//            onResetClick = {
-//                module.newIncrementation?.let {
-//                    val newModule = module.copy(newIncrementation = null)
-//                    onResetNewIncrementation(newModule, module)
-//
-//                }
-//            }
-//        )
-//
-//        IncrementationDropdownMenu(
-//            modifier = Modifier.height(height),
-//            expanded = module.isEditIncrementDropdownMenuVisible,
-//            onDismissRequest = onEditIncrementationDropdownMenuDismiss,
-//
-//            onClick = { number ->
-//                val newModule = module.copy(incrementation = number.toString())
-//                onEditIncrementation(newModule, module)
-//            },
-//            isResetAvailable = false
-//        )
+        ModuleActionsMenu(
+            onDismissRequest = onDropdownMenuDismiss,
+            module = module,
+            onActionDeleteClick = onActionDeleteClick,
+            onActionEditIncrementationClick = onActionEditIncrementationClick,
+            onActionAddNewIncrementationClick = onActionAddNewIncrementationClick,
+            onActionAddNewIncrementationFromDateClick = onActionAddNewIncrementationFromDateClick,
+            onActionToggleSkippedClick = onActionToggleSkippedClick,
+        )
+
+        IncrementationDropdownMenu(
+            modifier = Modifier.height(height),
+            expanded = module.isAddNewIncrementDropdownMenuVisible,
+            onDismissRequest = onAddNewIncrementationDropdownMenuDismiss,
+            onClick = { number ->
+                val newModule = module.copy(newIncrementation = number)
+                onAddNewIncrementation(newModule)
+            },
+            isResetAvailable = true,
+            onResetClick = {
+                module.newIncrementation?.let {
+                    val newModule = module.copy(newIncrementation = null)
+                    onResetNewIncrementation(newModule, module)
+
+                }
+            }
+        )
+
+        IncrementationDropdownMenu(
+            modifier = Modifier.height(height),
+            expanded = module.isEditIncrementDropdownMenuVisible,
+            onDismissRequest = onEditIncrementationDropdownMenuDismiss,
+
+            onClick = { number ->
+                val newModule = module.copy(incrementation = number.toString())
+                onEditIncrementation(newModule, module)
+            },
+            isResetAvailable = false
+        )
     }
 }
 

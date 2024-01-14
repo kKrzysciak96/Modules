@@ -52,6 +52,9 @@ dependencies {
     implementation("app.cash.sqldelight:gradle-plugin:$sqlDelightversion")
     implementation(compose.materialIconsExtended)
 
+    val richerTextEditorVer = "1.0.0-rc01"
+
+//    implementation("com.mohamedrejeb.richeditor:richeditor-compose:$richerTextEditorVer")
 
 //     val composeVersion = "1.5.0"
 //     val composeCompilerVersion = "1.4.5"

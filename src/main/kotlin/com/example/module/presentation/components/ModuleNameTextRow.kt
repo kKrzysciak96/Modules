@@ -1,0 +1,54 @@
+package com.example.module.presentation.components
+
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.Icon
+import androidx.compose.material.Text
+import androidx.compose.material.TextField
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.outlined.Edit
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+
+
+@Composable
+fun ModuleNameTextRow(
+    modifier: Modifier = Modifier,
+    singleLine: Boolean = false,
+    label: String,
+    text: String,
+    isIconEnabled: Boolean,
+    onValueChange: (String) -> Unit,
+    onIconClick: () -> Unit
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(text = "$label:")
+
+        if (isIconEnabled) {
+            Icon(
+                imageVector = Icons.Filled.Edit,
+                contentDescription = null,
+                modifier = Modifier.clickable { onIconClick() })
+        } else {
+            Icon(
+                imageVector = Icons.Outlined.Edit,
+                contentDescription = null,
+                modifier = Modifier.clickable { onIconClick() })
+        }
+    }
+    if (isIconEnabled) {
+        TextField(
+            value = text,
+            onValueChange = onValueChange,
+            singleLine = singleLine
+        )
+    } else {
+        Text(text = text)
+    }
+}

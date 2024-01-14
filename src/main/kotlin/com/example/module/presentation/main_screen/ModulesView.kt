@@ -3,6 +3,7 @@ package com.example.module.presentation.main_screen
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
@@ -14,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.core.extensions.calculateDateUponGivenHorizontalPagerPage
 import com.example.core.utils.UiEvent
@@ -184,31 +186,31 @@ fun ModulesView(
             }
         }
 
-//        if (state.isAddModuleDialogVisible) {
-//            state.newModuleToInsert?.let {
-//                AddModuleDialog(
-//                    module = it,
-//                    modifier = Modifier
-//                        .size(300.dp)
-//                        .background(Color.White),
-//                    onNameTextEntered = { text ->
-//                        onEvent(MainScreenEvents.OnNameTextEntered(text))
-//                    },
-//                    onCommentTextEntered = { text ->
-//                        onEvent(MainScreenEvents.OnCommentTextEntered(text))
-//                    },
-//                    onIncrementationTextEntered = { number ->
-//                        onEvent(MainScreenEvents.OnIncrementationEntered(number))
-//                    },
-//                    onDismissRequest = {
-//                        onEvent(MainScreenEvents.OnAddModuleDialogDismiss)
-//                    },
-//                    onSaveButtonClick = {
-//                        onEvent(MainScreenEvents.OnSaveButtonClick(it))
-//                    }
-//                )
-//            }
-//        }
+        if (state.isAddModuleDialogVisible) {
+            state.newModuleToInsert?.let {
+                AddModuleDialog(
+                    module = it,
+                    modifier = Modifier
+                        .size(300.dp)
+                        .background(Color.White),
+                    onNameTextEntered = { text ->
+                        onEvent(MainScreenEvents.OnNameTextEntered(text))
+                    },
+                    onCommentTextEntered = { text ->
+                        onEvent(MainScreenEvents.OnCommentTextEntered(text))
+                    },
+                    onIncrementationTextEntered = { number ->
+                        onEvent(MainScreenEvents.OnIncrementationEntered(number))
+                    },
+                    onDismissRequest = {
+                        onEvent(MainScreenEvents.OnAddModuleDialogDismiss)
+                    },
+                    onSaveButtonClick = {
+                        onEvent(MainScreenEvents.OnSaveButtonClick(it))
+                    }
+                )
+            }
+        }
 
         if (state.bottomBarState) {
             SyncBottomBar(onEvent = onEvent, modifier = Modifier.align(Alignment.BottomCenter))
