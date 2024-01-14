@@ -28,4 +28,8 @@ interface ModuleRepository {
 
     suspend fun fetchModulesFromRemote(): Flow<ApiResult>
 
+    suspend fun saveLastCard(page: Int)
+
+    suspend fun loadLastCard(): Int
+
 }

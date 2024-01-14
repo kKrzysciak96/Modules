@@ -21,17 +21,13 @@ import java.util.*
 
 class MainScreenViewModel(
     private val useCases: ModuleUseCases,
-//    private val preferences: Preferences,
     private val undoHelper: UndoHelper
 ) {
     val viewModelScope = CoroutineScope(Dispatchers.IO)
 
-    //    var lastPage = preferences.loadLastCard()
-    var lastPage = 1000
 
     private val _state = MutableStateFlow(
         MainScreenState(
-            currentPage = lastPage,
 //            calendarState = UseCaseState(
 //                onDismissRequest = { onEvent(MainScreenEvents.OnCalendarDialogDismiss) },
 //            ),
@@ -46,7 +42,16 @@ class MainScreenViewModel(
     val uiEvent = _uiEvent.receiveAsFlow()
 
     init {
+        loadLastCard()
         getModules()
+    }
+
+    private fun loadLastCard() {
+        job = viewModelScope.launch {
+            val lastPage = useCases.loadLastCardUseCase()
+            println(lastPage.toString() + "load")
+            _state.value = state.value.copy(currentPage = lastPage)
+        }
     }
 
     fun onEvent(event: MainScreenEvents) {
@@ -604,8 +609,11 @@ class MainScreenViewModel(
     }
 
     private fun updateLastCard(cardNumber: Int) {
-//        preferences.saveLastCard(cardNumber)
-//        _state.value = state.value.copy(currentPage = cardNumber)
+        job = null
+        job = viewModelScope.launch {
+            useCases.saveLastCardUseCase(cardNumber)
+            _state.value = state.value.copy(currentPage = cardNumber)
+        }
     }
 
     fun isUndoButtonEnabled() = undoHelper.undoIndex != null

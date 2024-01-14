@@ -1,0 +1,14 @@
+CREATE TABLE IF NOT EXISTS CustomPreferencesEntity(
+id TEXT NOT NULL PRIMARY KEY,
+page INTEGER
+);
+
+saveLastCard:
+INSERT OR REPLACE
+INTO CustomPreferencesEntity
+VALUES (?,?);
+
+loadLastCard:
+SELECT *
+FROM CustomPreferencesEntity
+WHERE id =:id;

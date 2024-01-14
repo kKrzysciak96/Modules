@@ -6,7 +6,7 @@ data class MainScreenState constructor(
     val modules: List<ModuleDisplayable> = emptyList(),
     val newModuleToInsert: ModuleDisplayable? = null,
 //    val calendarState: UseCaseState,
-    val currentPage: Int,
+    val currentPage: Int? = null,
     val isSearchActive: Boolean = false,
     val searchedText: String = "",
     val searchOptions: SearchOptions,
@@ -17,7 +17,5 @@ data class MainScreenState constructor(
     val isApiRequestLoading: Boolean = false,
     val bottomBarState: Boolean = false,
 )
-
-
 
 

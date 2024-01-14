@@ -2,6 +2,7 @@ package com.example.module.data.repository
 
 import com.example.core.extensions.toModuleDomain
 import com.example.core.extensions.toModuleEntity
+import com.example.core.preferences.CustomPreferences
 import com.example.core.utils.ApiResult
 import com.example.module.data.local.ModuleDataSource
 import com.example.module.data.remote.RemoteDatabase
@@ -16,6 +17,7 @@ import java.util.*
 class ModuleRepositoryImpl(
     private val remoteDataBase: RemoteDatabase<SupabaseSpecificModule>,
     private val localDataBase: ModuleDataSource,
+    private val customPreferences: CustomPreferences,
 ) : ModuleRepository {
 
     //        override suspend fun getModules(): Flow<ApiResult> {
@@ -77,5 +79,13 @@ class ModuleRepositoryImpl(
                 emit(ApiResult.Error(e.message))
             }
         }
+    }
+
+    override suspend fun saveLastCard(page: Int) {
+        customPreferences.saveLastCard(page)
+    }
+
+    override suspend fun loadLastCard(): Int {
+        return customPreferences.loadLastCard()
     }
 }

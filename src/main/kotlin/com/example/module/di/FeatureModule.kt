@@ -1,6 +1,8 @@
 package com.example.module.di
 
 import com.example.ModuleDb
+import com.example.core.preferences.CustomPreferences
+import com.example.core.preferences.CustomPreferencesImpl
 import com.example.module.data.local.DriverFactory
 import com.example.module.data.local.ModuleDataSource
 import com.example.module.data.local.ModuleDataSourceImpl
@@ -33,8 +35,9 @@ val featureModule = module {
 
     single<ModuleDb> { ModuleDb(DriverFactory().createDriver()) }
     single<ModuleDataSource> { ModuleDataSourceImpl(get()) }
+    single<CustomPreferences> { CustomPreferencesImpl(get()) }
 
-    single<ModuleRepository> { ModuleRepositoryImpl(get(), get()) }
+    single<ModuleRepository> { ModuleRepositoryImpl(get(), get(), get()) }
 
     factory { AddModuleUseCase(get()) }
     factory { DeleteModuleUseCase(get()) }
@@ -48,10 +51,14 @@ val featureModule = module {
     factory { FilterAllModuleNames() }
     factory { DeleteModulesUseCase(get()) }
     factory { UpdateUndoListUseCase() }
+    factory { SaveLastCardUseCase(get()) }
+    factory { LoadLastCardUseCase(get()) }
 
     single<UndoHelper> { UndoHelper() }
     factory<ModuleUseCases> {
         ModuleUseCases(
+            get(),
+            get(),
             get(),
             get(),
             get(),

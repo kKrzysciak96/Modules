@@ -17,6 +17,7 @@ repositories {
     mavenCentral()
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     maven("https://oss.sonatype.org/content/repositories/snapshots")
+
 }
 
 sqldelight {
@@ -49,6 +50,21 @@ dependencies {
     implementation("app.cash.sqldelight:runtime:$sqlDelightversion")
     implementation("app.cash.sqldelight:coroutines-extensions:$sqlDelightversion")
     implementation("app.cash.sqldelight:gradle-plugin:$sqlDelightversion")
+    implementation(compose.materialIconsExtended)
+
+
+//     val composeVersion = "1.5.0"
+//     val composeCompilerVersion = "1.4.5"
+//     val composeBoomVersion = "2023.03.00"
+//    val navigationVersion = "2.5.3"
+//
+//    implementation("androidx.compose.compiler:compiler:$composeCompilerVersion")
+//    implementation(platform("androidx.compose:compose-bom:$composeBoomVersion"))
+//    implementation("androidx.compose.ui:ui")
+//    implementation("androidx.compose.ui:ui-graphics")
+//    implementation("androidx.compose.material3:material3")
+//    implementation("androidx.compose.runtime:runtime:$composeVersion")
+//    implementation("androidx.navigation:navigation-compose:$navigationVersion")
 
 }
 
