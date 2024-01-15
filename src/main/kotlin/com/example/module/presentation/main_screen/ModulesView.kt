@@ -69,8 +69,7 @@ fun ModulesView(
 //                    snapVelocityThreshold = 800.dp,
 //                    snapPositionalThreshold = 1f,
                     snapAnimationSpec = spring(stiffness = Spring.StiffnessMediumLow)
-                ),
-                pageCount = Int.MAX_VALUE
+                )
             ) { page ->
                 LazyColumn(
                     modifier = Modifier.fillMaxWidth(),

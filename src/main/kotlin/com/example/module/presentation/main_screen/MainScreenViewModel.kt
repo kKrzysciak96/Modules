@@ -2,6 +2,7 @@ package com.example.module.presentation.main_screen
 
 
 import com.example.core.extensions.isDigitsOnly
+import com.example.core.navigation.Routes
 import com.example.core.utils.ApiResult
 import com.example.core.utils.UiEvent
 import com.example.core.utils.UiText
@@ -15,6 +16,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import moe.tlaster.precompose.viewmodel.ViewModel
 import java.time.LocalDate
 import java.util.*
 
@@ -22,7 +24,7 @@ import java.util.*
 class MainScreenViewModel(
     private val useCases: ModuleUseCases,
     private val undoHelper: UndoHelper
-) {
+) : ViewModel() {
     val viewModelScope = CoroutineScope(Dispatchers.IO)
 
 
@@ -287,8 +289,8 @@ class MainScreenViewModel(
             is MainScreenEvents.OnModuleClick -> {
                 job = null
                 job = viewModelScope.launch {
-//                    val route = Routes.MODULE_SCREEN + "/${event.id}"
-//                    _uiEvent.send(UiEvent.OnNextScreen(route))
+                    val route = "/${Routes.MODULE_SCREEN}/${event.id}"
+                    _uiEvent.send(UiEvent.OnNextScreen(route))
                 }
             }
 
@@ -386,8 +388,8 @@ class MainScreenViewModel(
             is MainScreenEvents.OnShowAllModulesPreviewIconClick -> {
                 job = null
                 job = viewModelScope.launch {
-//                    val route = Routes.ALL_MODULES_PREVIEW_SCREEN
-//                    _uiEvent.send(UiEvent.OnNextScreen(route))
+                    val route = Routes.ALL_MODULES_PREVIEW_SCREEN
+                    _uiEvent.send(UiEvent.OnNextScreen(route))
                 }
             }
 

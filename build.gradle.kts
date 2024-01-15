@@ -4,9 +4,11 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.8.10"
-    id("org.jetbrains.compose") version "1.4.3"
+    id("org.jetbrains.compose") version "1.6.0-dev1296"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.8.10"
     id("app.cash.sqldelight") version "2.0.0"
+//    id("org.jetbrains.compose") version "1.6.0-dev1296"
+
 }
 
 group = "org.example"
@@ -28,8 +30,6 @@ sqldelight {
     }
 }
 
-
-
 dependencies {
     implementation(compose.desktop.currentOs)
 
@@ -43,7 +43,6 @@ dependencies {
 
     implementation("io.insert-koin:koin-core:$koinVersion")
 
-
     val sqlDelightversion = "2.0.0"
 
     implementation("app.cash.sqldelight:sqlite-driver:$sqlDelightversion")
@@ -54,20 +53,16 @@ dependencies {
 
     val richerTextEditorVer = "1.0.0-rc01"
 
-//    implementation("com.mohamedrejeb.richeditor:richeditor-compose:$richerTextEditorVer")
+    implementation("com.mohamedrejeb.richeditor:richeditor-compose:$richerTextEditorVer")
 
-//     val composeVersion = "1.5.0"
-//     val composeCompilerVersion = "1.4.5"
-//     val composeBoomVersion = "2023.03.00"
-//    val navigationVersion = "2.5.3"
-//
-//    implementation("androidx.compose.compiler:compiler:$composeCompilerVersion")
-//    implementation(platform("androidx.compose:compose-bom:$composeBoomVersion"))
-//    implementation("androidx.compose.ui:ui")
-//    implementation("androidx.compose.ui:ui-graphics")
-//    implementation("androidx.compose.material3:material3")
-//    implementation("androidx.compose.runtime:runtime:$composeVersion")
-//    implementation("androidx.navigation:navigation-compose:$navigationVersion")
+    val preComposeVersion = "1.5.10"
+    api(compose.foundation)
+    api(compose.animation)
+    api("moe.tlaster:precompose:$preComposeVersion")
+    api("moe.tlaster:precompose-molecule:$preComposeVersion")
+    api("moe.tlaster:precompose-viewmodel:$preComposeVersion")
+    api("moe.tlaster:precompose-koin:$preComposeVersion")
+
 
 }
 

@@ -12,7 +12,9 @@ import com.example.module.data.remote.model.SupabaseSpecificModule
 import com.example.module.data.repository.ModuleRepositoryImpl
 import com.example.module.domain.repository.ModuleRepository
 import com.example.module.domain.use_cases.*
+import com.example.module.presentation.all_modules_preview.AllModulesPreviewScreenViewModel
 import com.example.module.presentation.main_screen.MainScreenViewModel
+import com.example.module.presentation.module_screen.ModuleScreenViewModel
 import com.example.module.presentation.utils.UndoHelper
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
@@ -75,5 +77,7 @@ val featureModule = module {
     }
 
     factory { MainScreenViewModel(get(), get()) }
+    factory { ModuleScreenViewModel(get(), get()) }
+    factory { AllModulesPreviewScreenViewModel(get(), get()) }
 
 }

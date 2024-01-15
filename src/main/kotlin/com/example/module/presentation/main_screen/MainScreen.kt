@@ -5,6 +5,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.*
+import com.example.core.utils.UiEvent
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -15,20 +16,46 @@ fun MainScreen(
 ) {
     val state by viewModel.state.collectAsState()
     val scope = rememberCoroutineScope()
+
+    LaunchedEffect(
+        key1 = Unit,
+        block = {
+            viewModel.uiEvent.collect { event ->
+                when (event) {
+                    is UiEvent.OnNextScreen -> {
+                        onNextScreen(event.route)
+                    }
+
+                    is UiEvent.ShowSnackBar -> {
+//                        snackBarHostState.currentSnackbarData?.dismiss()
+//                        snackBarHostState.showSnackbar(
+//                            event.message.asString(context),
+//                            withDismissAction = true
+//                        )
+                    }
+
+                    UiEvent.OnBack -> {
+                    }
+                }
+            }
+        })
+
     state.currentPage?.let { currentPage ->
         val pagerState = rememberPagerState(
             initialPage = currentPage,
             initialPageOffsetFraction = 0f
-        )
+        ) {
+            Int.MAX_VALUE
+        }
 
         if (state.isSearchActive) {
-//        SearchView(
-//            onEvent = viewModel::onEvent,
-//            state = state,
-//            uiEvent = viewModel.uiEvent,
-//            snackBarHostState = snackBarHostState,
-//
-//            )
+            SearchView(
+                onEvent = viewModel::onEvent,
+                state = state,
+                uiEvent = viewModel.uiEvent,
+                snackBarHostState = snackBarHostState,
+
+                )
         } else {
             ModulesView(
                 onEvent = viewModel::onEvent,
