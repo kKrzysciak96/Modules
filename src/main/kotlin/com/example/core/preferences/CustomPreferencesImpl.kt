@@ -7,7 +7,6 @@ class CustomPreferencesImpl(private val db: ModuleDb) : CustomPreferences {
     private val queries = db.customPreferencesQueries
 
     override fun saveLastCard(page: Int) {
-        println(page.toString() + "save")
         queries.saveLastCard(CustomPreferences.KEY_LAST_CARD, page.toLong())
     }
 

@@ -18,7 +18,11 @@ class ModuleDataSourceImpl(private val db: ModuleDb) : ModuleDataSource {
         }
     }
 
-    override fun getModules(): Flow<List<ModuleEntity>> {
+    override suspend fun getModules(): List<ModuleEntity> {
+        return queries.getAllModules().executeAsList()
+    }
+
+    override fun getModulesFlow(): Flow<List<ModuleEntity>> {
         return queries.getAllModules().asFlow().map { it.executeAsList() }
     }
 
@@ -49,4 +53,29 @@ class ModuleDataSourceImpl(private val db: ModuleDb) : ModuleDataSource {
         }
     }
 
+    override suspend fun addModules(modules: List<ModuleEntity>) {
+        println(modules.size.toString() + " remote size")
+        queries.transaction {
+            modules.forEach { module ->
+                queries.addModule(
+                    id = module.id,
+                    comment = module.comment,
+                    epochDay = module.epochDay,
+                    incrementation = module.incrementation,
+                    newIncrementation = module.newIncrementation,
+                    isSkipped = module.isSkipped,
+                    timeStamp = module.timeStamp,
+                    name = module.name,
+                )
+            }
+        }
+    }
+
+    override suspend fun deleteModules(modules: List<ModuleEntity>) {
+        queries.transaction {
+            modules.forEach { module -> queries.deleteModuleById(module.id) }
+        }
+    }
+
 }
+

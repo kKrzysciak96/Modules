@@ -6,7 +6,6 @@ import com.example.core.navigation.Routes
 import com.example.core.utils.ApiResult
 import com.example.core.utils.UiEvent
 import com.example.core.utils.UiText
-import com.example.module.domain.model.ModuleDomain
 import com.example.module.domain.use_cases.ModuleUseCases
 import com.example.module.presentation.model.ModuleDisplayable
 import com.example.module.presentation.utils.*
@@ -51,7 +50,6 @@ class MainScreenViewModel(
     private fun loadLastCard() {
         job = viewModelScope.launch {
             val lastPage = useCases.loadLastCardUseCase()
-            println(lastPage.toString() + "load")
             _state.value = state.value.copy(currentPage = lastPage)
         }
     }
@@ -336,13 +334,11 @@ class MainScreenViewModel(
 
                             ApiResult.Loading -> {
                                 _state.value = state.value.copy(isApiRequestLoading = true)
+
                             }
 
                             is ApiResult.Success<*> -> {
-                                _state.value =
-                                    state.value.copy(modules = (apiResult as ApiResult.Success<List<ModuleDomain>>).data.map {
-                                        ModuleDisplayable(it)
-                                    }, isApiRequestLoading = false)
+                                _state.value = state.value.copy(isApiRequestLoading = false)
 //                                _uiEvent.send(UiEvent.ShowSnackBar(UiText.StringResource(R.string.fetch_success)))
                             }
                         }

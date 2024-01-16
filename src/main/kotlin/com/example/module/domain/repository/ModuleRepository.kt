@@ -18,7 +18,7 @@ interface ModuleRepository {
 
     suspend fun deleteModules(modules: List<ModuleDomain>)
 
-    fun getModules(): Flow<List<ModuleDomain>>
+    fun getModulesFlow(): Flow<List<ModuleDomain>>
 
     suspend fun getModule(id: UUID): ModuleDomain
 

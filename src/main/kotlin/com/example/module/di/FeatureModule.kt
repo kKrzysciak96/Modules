@@ -8,7 +8,7 @@ import com.example.module.data.local.ModuleDataSource
 import com.example.module.data.local.ModuleDataSourceImpl
 import com.example.module.data.remote.RemoteDatabase
 import com.example.module.data.remote.RemoteSupaDatabaseImpl
-import com.example.module.data.remote.model.SupabaseSpecificModule
+import com.example.module.data.remote.model.SupabaseModuleDto
 import com.example.module.data.repository.ModuleRepositoryImpl
 import com.example.module.domain.repository.ModuleRepository
 import com.example.module.domain.use_cases.*
@@ -33,7 +33,7 @@ val featureModule = module {
         }
     }
 
-    single<RemoteDatabase<SupabaseSpecificModule>> { RemoteSupaDatabaseImpl(get()) }
+    single<RemoteDatabase<SupabaseModuleDto>> { RemoteSupaDatabaseImpl(get()) }
 
     single<ModuleDb> { ModuleDb(DriverFactory().createDriver()) }
     single<ModuleDataSource> { ModuleDataSourceImpl(get()) }

@@ -63,7 +63,6 @@ dependencies {
     api("moe.tlaster:precompose-viewmodel:$preComposeVersion")
     api("moe.tlaster:precompose-koin:$preComposeVersion")
 
-
 }
 
 tasks.withType<KotlinCompile> {
