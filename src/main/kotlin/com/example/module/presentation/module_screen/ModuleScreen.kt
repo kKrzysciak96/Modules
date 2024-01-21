@@ -52,10 +52,6 @@ fun ModuleScreen(
         }
     })
 
-//    BackHandler {
-//        viewModel.onEvent(ModuleScreenEvents.OnBackButtonPress)
-//    }
-
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.TopCenter

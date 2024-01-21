@@ -67,7 +67,7 @@ class AllModulesPreviewScreenViewModel(
     private fun getAllModuleNames() {
         viewModelScope.launch {
             useCases.getModulesUseCase().collect { modules ->
-                oldModules = modules
+                oldModules = modules.sortedBy { it.name }
                 _state.value = state.value.copy(allModules = useCases.filterAllModuleNames(modules))
             }
         }

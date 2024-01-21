@@ -59,7 +59,7 @@ class MainScreenViewModel(
         when (event) {
 
             is MainScreenEvents.OnCalendarDialogDismiss -> {
-                _state.value = state.value.copy(newModuleToInsert = null)
+                _state.value = state.value.copy(newModuleToInsert = null, isCalendarVisible = false)
             }
 
             is MainScreenEvents.OnAddButtonClick -> {
@@ -249,7 +249,8 @@ class MainScreenViewModel(
             is MainScreenEvents.OnPickDate -> {
 
                 _state.value = state.value.copy(
-                    newModuleToInsert = state.value.newModuleToInsert?.copy(epochDay = event.date.toEpochDay())
+                    newModuleToInsert = state.value.newModuleToInsert?.copy(epochDay = event.date.toEpochDay()),
+                    isCalendarVisible = false
                 )
 
                 _state.value = state.value.copy(modules = state.value.modules.map {
@@ -262,7 +263,7 @@ class MainScreenViewModel(
             }
 
             is MainScreenEvents.ActionAddNewIncrementationFromDate -> {
-                _state.value = state.value.copy(newModuleToInsert = event.module)
+                _state.value = state.value.copy(newModuleToInsert = event.module, isCalendarVisible = true)
             }
 
             is MainScreenEvents.OnToggleSkipped -> {

@@ -88,14 +88,14 @@ class ModuleScreenViewModel(
                 )
                 update(event.module)
                 newModule = event.module
-                job = null
-                job = viewModelScope.launch {
+//                job = null
+//                job = viewModelScope.launch {
 //                    _uiEvent.send(
 //                        UiEvent.ShowSnackBar(
 //                            UiText.StringResource(R.string.module_saved)
 //                        )
 //                    )
-                }
+//                }
             }
 
             is ModuleScreenEvents.OnNameEntered -> {

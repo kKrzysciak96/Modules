@@ -33,9 +33,8 @@ fun ColorSelector(
     ) {
         IconButton(
             onClick = onColorButtonClick,
-//            colors = IconButtonDefaults.iconButtonColors(contentColor = currentColor)
         ) {
-            Icon(imageVector = Icons.Default.Circle, contentDescription = null)
+            Icon(imageVector = Icons.Default.Circle, contentDescription = null, tint = currentColor)
         }
         ColorsDropdownMenu(
             modifier = Modifier.align(Alignment.BottomCenter),

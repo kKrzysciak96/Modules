@@ -33,15 +33,14 @@ fun AllModulesPreviewScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
-            Row(Modifier.fillMaxWidth()) {
-                IconButton(onClick = onBack) {
-                    Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
-                }
-                Text(
-                    text = "All Modules Names",
-                    style = MaterialTheme.typography.h2
-                )
+
+            IconButton(onClick = onBack, modifier = Modifier.align(Alignment.Start)) {
+                Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
             }
+            Text(
+                text = "All Modules Names",
+                style = MaterialTheme.typography.h2
+            )
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()

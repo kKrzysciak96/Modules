@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun CustomIcon(
     imageVector: ImageVector,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
     Icon(

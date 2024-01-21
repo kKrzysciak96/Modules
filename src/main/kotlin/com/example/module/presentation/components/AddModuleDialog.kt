@@ -1,16 +1,23 @@
 package com.example.module.presentation.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Save
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedButton
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogState
+import androidx.compose.ui.window.rememberDialogState
+import com.example.core.ui.colorDarkGreen
 import com.example.module.presentation.model.ModuleDisplayable
 
 @Composable
@@ -24,26 +31,26 @@ fun AddModuleDialog(
     onIncrementationTextEntered: (String) -> Unit,
 
     ) {
-    Dialog(onCloseRequest = onDismissRequest) {
+    val state: DialogState = rememberDialogState(width = 600.dp, height = 600.dp)
+
+    Dialog(onCloseRequest = onDismissRequest, state = state) {
         Box(
             modifier = modifier,
             contentAlignment = Alignment.Center
         ) {
-            CustomIcon(
-                imageVector = Icons.Default.Save,
-                modifier = Modifier.align(Alignment.TopEnd),
-                onClick = onSaveButtonClick
-            )
-            CustomIcon(
-                imageVector = Icons.Default.Close,
-                modifier = Modifier.align(Alignment.TopStart),
-                onClick = onDismissRequest
-            )
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Center
             ) {
+                Text(
+                    text = "Insert New Module",
+                    style = MaterialTheme.typography.h4,
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
                 CustomModuleDialogRow(
                     label = "Name",
                     text = module.name,
@@ -74,6 +81,20 @@ fun AddModuleDialog(
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                     singleLine = true
                 )
+                Spacer(modifier = Modifier.height(16.dp))
+
+                OutlinedButton(
+                    modifier = Modifier.padding(10.dp).align(Alignment.CenterHorizontally),
+                    shape = RoundedCornerShape(30.dp),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = colorDarkGreen),
+                    border = BorderStroke(width = 1.dp, color = Color.DarkGray),
+                    onClick = { onSaveButtonClick() })
+                {
+                    Text(
+                        text = "SAVE",
+                        style = MaterialTheme.typography.h4
+                    )
+                }
             }
         }
     }

@@ -33,7 +33,8 @@ fun CustomModuleDialogRow(
             onValueChange = onValueChange,
             placeholder = { Text(text = placeholderText) },
             keyboardOptions = keyboardOptions,
-            singleLine = singleLine
+            singleLine = singleLine,
+            modifier = Modifier.weight(1f)
         )
     }
 }

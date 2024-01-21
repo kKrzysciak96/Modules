@@ -10,17 +10,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogState
+import androidx.compose.ui.window.DialogWindow
+import androidx.compose.ui.window.rememberDialogState
 import com.example.core.ui.colorDarkGreen
 
 @Composable
 fun DeleteDialog(
     delete: () -> Unit,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
-    Dialog(onCloseRequest = { onDismiss() }) {
+    val state: DialogState = rememberDialogState(width = 600.dp, height = 600.dp)
+
+    DialogWindow(onCloseRequest = { onDismiss() }, state = state, content = {
         Card {
-            Box(contentAlignment = Alignment.Center) {
+            Box(contentAlignment = Alignment.Center, modifier = modifier.size(1000.dp)) {
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.Center,
@@ -64,5 +69,5 @@ fun DeleteDialog(
                 }
             }
         }
-    }
+    })
 }

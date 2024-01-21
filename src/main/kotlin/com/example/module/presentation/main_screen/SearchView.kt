@@ -2,6 +2,7 @@ package com.example.module.presentation.main_screen
 
 
 import androidx.compose.animation.*
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -15,16 +16,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.core.utils.UiEvent
+import com.example.module.presentation.components.AddModuleDialog
 import com.example.module.presentation.components.DayRow
 import com.example.module.presentation.components.SearchOptionsSection
+import com.example.module.presentation.components.date_picker.DatePickerDialog
 import com.example.module.presentation.utils.MainScreenEvents
 import com.example.module.presentation.utils.MainScreenState
 import com.example.module.presentation.utils.SearchOptions
 import com.example.module.presentation.utils.SearchOrder
+import io.ktor.server.util.*
+import io.ktor.util.*
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
+import java.util.*
 
 
+@OptIn(InternalAPI::class)
 @Composable
 fun SearchView(
     onEvent: (MainScreenEvents) -> Unit,
@@ -181,7 +188,6 @@ fun SearchView(
                                     module
                                 )
                             )
-//                            state.calendarState.show()
                         },
                         onActionToggleSkippedClick = { module ->
                             onEvent(MainScreenEvents.OnToggleSkipped(module))
@@ -207,4 +213,39 @@ fun SearchView(
 //            yearSelection = true,
 //        )
 //    )
+    if (state.isAddModuleDialogVisible) {
+        state.newModuleToInsert?.let {
+            AddModuleDialog(
+                module = it,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.White),
+                onNameTextEntered = { text ->
+                    onEvent(MainScreenEvents.OnNameTextEntered(text))
+                },
+                onCommentTextEntered = { text ->
+                    onEvent(MainScreenEvents.OnCommentTextEntered(text))
+                },
+                onIncrementationTextEntered = { number ->
+                    onEvent(MainScreenEvents.OnIncrementationEntered(number))
+                },
+                onDismissRequest = {
+                    onEvent(MainScreenEvents.OnAddModuleDialogDismiss)
+                },
+                onSaveButtonClick = {
+                    onEvent(MainScreenEvents.OnSaveButtonClick(it))
+                }
+            )
+        }
+    }
+
+    if (state.isCalendarVisible) {
+        DatePickerDialog(
+            initDate = Date(),
+            onDismissRequest = { onEvent(MainScreenEvents.OnCalendarDialogDismiss) },
+            onDateSelect = { date ->
+                onEvent(MainScreenEvents.OnPickDate(date.toLocalDateTime().toLocalDate()))
+            }
+        )
+    }
 }

@@ -5,7 +5,7 @@ import com.example.module.presentation.model.ModuleDisplayable
 data class MainScreenState constructor(
     val modules: List<ModuleDisplayable> = emptyList(),
     val newModuleToInsert: ModuleDisplayable? = null,
-//    val calendarState: UseCaseState,
+    val isCalendarVisible: Boolean = false,
     val currentPage: Int? = null,
     val isSearchActive: Boolean = false,
     val searchedText: String = "",

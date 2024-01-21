@@ -20,14 +20,18 @@ import androidx.compose.ui.unit.dp
 import com.example.core.extensions.calculateDateUponGivenHorizontalPagerPage
 import com.example.core.utils.UiEvent
 import com.example.module.presentation.components.*
+import com.example.module.presentation.components.date_picker.DatePickerDialog
 import com.example.module.presentation.utils.MainScreenEvents
 import com.example.module.presentation.utils.MainScreenState
+import io.ktor.server.util.*
+import io.ktor.util.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import java.util.*
 
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, InternalAPI::class)
 @Composable
 fun ModulesView(
     onEvent: (MainScreenEvents) -> Unit,
@@ -66,8 +70,6 @@ fun ModulesView(
                 modifier = Modifier.padding(bottom = 60.dp),
                 flingBehavior = PagerDefaults.flingBehavior(
                     state = pagerState,
-//                    snapVelocityThreshold = 800.dp,
-//                    snapPositionalThreshold = 1f,
                     snapAnimationSpec = spring(stiffness = Spring.StiffnessMediumLow)
                 )
             ) { page ->
@@ -174,7 +176,6 @@ fun ModulesView(
                                         module
                                     )
                                 )
-//                                state.calendarState.show()
                             },
                             onActionToggleSkippedClick = { module ->
                                 onEvent(MainScreenEvents.OnToggleSkipped(module))
@@ -184,28 +185,23 @@ fun ModulesView(
                 }
             }
         }
-//        CalendarDialog(
-//            state = state.calendarState,
-//            selection = CalendarSelection.Date(
-//                onNegativeClick = {
-//                    onEvent(MainScreenEvents.OnCalendarDialogDismiss)
-//                },
-//                onSelectDate = { date ->
-//                    onEvent(MainScreenEvents.OnPickDate(date))
-//                },
-//                selectedDate = state.newModuleToInsert?.epochDay?.let { LocalDate.ofEpochDay(it) }
-//            ),
-//            config = CalendarConfig(
-//                monthSelection = true,
-//                yearSelection = true,
-//            )
-//        )
+
+        if (state.isCalendarVisible) {
+            DatePickerDialog(
+                initDate = Date(),
+                onDismissRequest = { onEvent(MainScreenEvents.OnCalendarDialogDismiss) },
+                onDateSelect = { date ->
+                    onEvent(MainScreenEvents.OnPickDate(date.toLocalDateTime().toLocalDate()))
+                }
+            )
+
+        }
         if (state.isAddModuleDialogVisible) {
             state.newModuleToInsert?.let {
                 AddModuleDialog(
                     module = it,
                     modifier = Modifier
-                        .size(300.dp)
+                        .fillMaxSize()
                         .background(Color.White),
                     onNameTextEntered = { text ->
                         onEvent(MainScreenEvents.OnNameTextEntered(text))
@@ -227,7 +223,10 @@ fun ModulesView(
         }
 
         if (state.bottomBarState) {
-            SyncBottomBar(onEvent = onEvent, modifier = Modifier.align(Alignment.BottomCenter))
+            SyncBottomBar(
+                onEvent = onEvent,
+                modifier = Modifier.align(Alignment.BottomCenter)
+            )
         } else {
             UndoBottomBar(
                 onEvent = onEvent,

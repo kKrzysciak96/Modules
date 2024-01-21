@@ -50,6 +50,7 @@ dependencies {
     implementation("app.cash.sqldelight:coroutines-extensions:$sqlDelightversion")
     implementation("app.cash.sqldelight:gradle-plugin:$sqlDelightversion")
     implementation(compose.materialIconsExtended)
+//    implementation(compose.material3)
 
     val richerTextEditorVer = "1.0.0-rc01"
 
@@ -62,6 +63,7 @@ dependencies {
     api("moe.tlaster:precompose-molecule:$preComposeVersion")
     api("moe.tlaster:precompose-viewmodel:$preComposeVersion")
     api("moe.tlaster:precompose-koin:$preComposeVersion")
+
 
 }
 

@@ -1,10 +1,9 @@
 package com.example.module.presentation.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.LocalTextStyle
@@ -12,22 +11,29 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.Edit
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.BaselineShift
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mohamedrejeb.richeditor.annotation.ExperimentalRichTextApi
 import com.mohamedrejeb.richeditor.model.RichTextState
 import com.mohamedrejeb.richeditor.model.rememberRichTextState
 import com.mohamedrejeb.richeditor.ui.material3.RichTextEditor
 
+@OptIn(ExperimentalRichTextApi::class, ExperimentalComposeUiApi::class)
 @Composable
 fun ModuleCommentTextRow(
     modifier: Modifier = Modifier,
@@ -42,11 +48,22 @@ fun ModuleCommentTextRow(
 ) {
     val richTextState = rememberRichTextState()
 
+    val focusRequester = remember { FocusRequester() }
+    var lastSelection by remember { mutableStateOf<TextRange?>(null) }
+    var isFocused by remember { mutableStateOf(false) }
+
     LaunchedEffect(key1 = Unit, block = {
         richTextState.setHtml(text)
+
     })
 
-    LaunchedEffect(key1 = richTextState.annotatedString.text, block = {
+    LaunchedEffect(key1 = richTextState.selection, block = {
+        if (isFocused) {
+            lastSelection = richTextState.selection
+        }
+    })
+
+    LaunchedEffect(key1 = richTextState.annotatedString, block = {
         onValueChange(richTextState.toHtml())
     })
     Row(
@@ -76,21 +93,36 @@ fun ModuleCommentTextRow(
                 richTextState = richTextState,
                 modifier = Modifier.fillMaxWidth(),
                 onBoldClick = {
+                    lastSelection?.let { richTextState.selection = it }
+                    focusRequester.requestFocus()
                     richTextState.toggleSpanStyle(SpanStyle(fontWeight = FontWeight.Bold))
                 },
                 onItalicClick = {
+                    lastSelection?.let { richTextState.selection = it }
+                    focusRequester.requestFocus()
                     richTextState.toggleSpanStyle(SpanStyle(fontStyle = FontStyle.Italic))
+
                 },
                 onUnderLineClick = {
+                    lastSelection?.let { richTextState.selection = it }
+                    focusRequester.requestFocus()
                     richTextState.toggleSpanStyle(SpanStyle(textDecoration = TextDecoration.Underline))
                 },
                 onColorClick = {
+                    lastSelection?.let { richTextState.selection = it }
+                    focusRequester.requestFocus()
                     richTextState.toggleSpanStyle(SpanStyle(color = it))
                 },
-                onColorButtonClick = onColorButtonClick,
+                onColorButtonClick = {
+                    lastSelection?.let { richTextState.selection = it }
+                    focusRequester.requestFocus()
+                    onColorButtonClick()
+                },
                 isColorDropdownMenuVisible = isColorDropdownMenuVisible,
                 onColorMenuDismissRequest = onColorMenuDismissRequest,
                 onSuperscriptClick = {
+                    lastSelection?.let { richTextState.selection = it }
+                    focusRequester.requestFocus()
                     richTextState.toggleSpanStyle(
                         SpanStyle(
                             fontSize = 12.sp,
@@ -99,6 +131,8 @@ fun ModuleCommentTextRow(
                     )
                 },
                 onSubscriptClick = {
+                    lastSelection?.let { richTextState.selection = it }
+                    focusRequester.requestFocus()
                     richTextState.toggleSpanStyle(
                         SpanStyle(
                             fontSize = 12.sp,
@@ -107,7 +141,14 @@ fun ModuleCommentTextRow(
                     )
                 },
             )
+            Spacer(modifier = Modifier.height(4.dp))
             RichTextEditor(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .focusRequester(focusRequester)
+                    .onFocusChanged {
+                        isFocused = it.isFocused
+                    },
                 state = richTextState,
                 textStyle = LocalTextStyle.current.copy(fontSize = 18.sp)
             )
@@ -190,7 +231,7 @@ private fun EditorIconButton(
 ) {
     IconButton(
         onClick = onClick,
-//        colors = IconButtonDefaults.filledIconButtonColors(containerColor = if (isToggled) Color.Green else Color.White)
+        modifier = Modifier.background(if (isToggled) Color.Green else Color.White, RoundedCornerShape(100.dp))
     ) {
         Icon(imageVector = icon, contentDescription = contentDescription)
     }
