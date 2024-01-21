@@ -6,8 +6,10 @@ import androidx.compose.material.icons.filled.ToggleOff
 import androidx.compose.material.icons.filled.Undo
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import com.example.core.ui.Purple40
 import com.example.module.presentation.utils.MainScreenEvents
 
@@ -25,7 +27,7 @@ fun UndoBottomBar(
         IconButton(
             enabled = isUndoButtonEnabled(),
             modifier = Modifier.weight(0.5f),
-//            colors = IconButtonDefaults.iconButtonColors(contentColor = Color.White),
+            colors = IconButtonDefaults.iconButtonColors(contentColor = Color.White),
             onClick = {
                 onEvent(MainScreenEvents.OnUndoClick)
             }) {
@@ -33,7 +35,7 @@ fun UndoBottomBar(
         }
         IconButton(
             modifier = Modifier.weight(0.5f),
-//            colors = IconButtonDefaults.iconButtonColors(contentColor = Color.White),
+            colors = IconButtonDefaults.iconButtonColors(contentColor = Color.White),
             onClick = {
                 onEvent(MainScreenEvents.OnToggleBottomBar)
             }) {
@@ -45,7 +47,7 @@ fun UndoBottomBar(
         IconButton(
             enabled = isRedoButtonEnabled(),
             modifier = Modifier.weight(0.5f),
-//            colors = IconButtonDefaults.iconButtonColors(contentColor = Color.White),
+            colors = IconButtonDefaults.iconButtonColors(contentColor = Color.White),
             onClick = {
                 onEvent(MainScreenEvents.OnRedoClick)
             }) {

@@ -7,8 +7,10 @@ import androidx.compose.material.icons.filled.ToggleOn
 import androidx.compose.material.icons.filled.Upload
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import com.example.core.ui.Purple40
 import com.example.module.presentation.utils.MainScreenEvents
 
@@ -20,7 +22,7 @@ fun SyncBottomBar(modifier: Modifier = Modifier, onEvent: (MainScreenEvents) -> 
     ) {
         IconButton(
             modifier = Modifier.weight(0.5f),
-//            colors = IconButtonDefaults.iconButtonColors(contentColor = Color.White),
+            colors = IconButtonDefaults.iconButtonColors(contentColor = Color.White),
             onClick = {
                 onEvent(MainScreenEvents.OnFetchButtonClick)
             }) {
@@ -28,7 +30,7 @@ fun SyncBottomBar(modifier: Modifier = Modifier, onEvent: (MainScreenEvents) -> 
         }
         IconButton(
             modifier = Modifier.weight(0.5f),
-//            colors = IconButtonDefaults.iconButtonColors(contentColor = Color.White),
+            colors = IconButtonDefaults.iconButtonColors(contentColor = Color.White),
             onClick = {
                 onEvent(MainScreenEvents.OnToggleBottomBar)
             }) {
@@ -39,7 +41,7 @@ fun SyncBottomBar(modifier: Modifier = Modifier, onEvent: (MainScreenEvents) -> 
         }
         IconButton(
             modifier = Modifier.weight(0.5f),
-//            colors = IconButtonDefaults.iconButtonColors(contentColor = Color.White),
+            colors = IconButtonDefaults.iconButtonColors(contentColor = Color.White),
             onClick = {
                 onEvent(MainScreenEvents.OnPushButtonClick)
 
