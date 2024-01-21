@@ -3,7 +3,7 @@ package com.example.module.presentation.main_screen
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material.SnackbarHostState
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.*
 import com.example.core.utils.UiEvent
 

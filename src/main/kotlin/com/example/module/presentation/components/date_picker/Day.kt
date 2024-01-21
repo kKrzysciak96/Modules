@@ -6,8 +6,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,9 +28,9 @@ fun Day(
             .clip(RoundedCornerShape(50))
             .background(
                 if (selected) {
-                    MaterialTheme.colors.primary
+                    MaterialTheme.colorScheme.primary
                 } else {
-                    MaterialTheme.colors.surface
+                    MaterialTheme.colorScheme.surface
                 }
             ).clickable(enabled = clickable) { onChangeValue(day) },
         contentAlignment = Alignment.Center
@@ -38,7 +38,7 @@ fun Day(
         if (day != 0) {
             Text(
                 text = day.toString(),
-                color = if (selected) MaterialTheme.colors.onPrimary else MaterialTheme.colors.onSurface
+                color = if (selected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface
             )
         }
     }

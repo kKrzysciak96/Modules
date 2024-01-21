@@ -3,7 +3,7 @@ package com.example.module.presentation.components
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,7 +36,7 @@ fun SupaBaseDialog(
                 ) {
                     Text(
                         text = question,
-                        style = MaterialTheme.typography.h2,
+                        style = MaterialTheme.typography.headlineLarge,
                         modifier = Modifier.padding(5.dp),
                         textAlign = TextAlign.Center
                     )
@@ -44,7 +44,7 @@ fun SupaBaseDialog(
                         OutlinedButton(
                             modifier = Modifier.padding(10.dp),
                             shape = RoundedCornerShape(30.dp),
-                            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red),
+                            colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
                             border = BorderStroke(width = 1.dp, color = Color.Black),
                             onClick = {
                                 confirm()
@@ -53,19 +53,19 @@ fun SupaBaseDialog(
                         {
                             Text(
                                 text = confirmText,
-                                style = MaterialTheme.typography.h4
+                                style = MaterialTheme.typography.headlineMedium
                             )
                         }
                         OutlinedButton(
                             modifier = Modifier.padding(10.dp),
                             shape = RoundedCornerShape(30.dp),
-                            colors = ButtonDefaults.buttonColors(backgroundColor = colorDarkGreen),
+                            colors = ButtonDefaults.buttonColors(containerColor = colorDarkGreen),
                             border = BorderStroke(width = 1.dp, color = Color.DarkGray),
                             onClick = { onDismiss() })
                         {
                             Text(
                                 text = denyText,
-                                style = MaterialTheme.typography.h4
+                                style = MaterialTheme.typography.headlineMedium
                             )
                         }
                     }

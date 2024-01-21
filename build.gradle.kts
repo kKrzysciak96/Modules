@@ -7,8 +7,6 @@ plugins {
     id("org.jetbrains.compose") version "1.6.0-dev1296"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.8.10"
     id("app.cash.sqldelight") version "2.0.0"
-//    id("org.jetbrains.compose") version "1.6.0-dev1296"
-
 }
 
 group = "org.example"
@@ -50,7 +48,8 @@ dependencies {
     implementation("app.cash.sqldelight:coroutines-extensions:$sqlDelightversion")
     implementation("app.cash.sqldelight:gradle-plugin:$sqlDelightversion")
     implementation(compose.materialIconsExtended)
-//    implementation(compose.material3)
+    implementation(compose.material3)
+
 
     val richerTextEditorVer = "1.0.0-rc01"
 

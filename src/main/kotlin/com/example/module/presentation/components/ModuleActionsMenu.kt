@@ -1,8 +1,8 @@
 package com.example.module.presentation.components
 
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.Text
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import com.example.module.presentation.model.ModuleDisplayable
 import com.example.module.presentation.utils.ModuleActions
@@ -47,7 +47,7 @@ fun ModuleActionsMenu(
                         }
                     }
                 },
-                content = { Text(text = action.actionName) })
+                text = { Text(text = action.actionName) })
         }
     }
 }

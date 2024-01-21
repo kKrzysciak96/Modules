@@ -1,8 +1,8 @@
 package com.example.module.presentation.components
 
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.Text
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
@@ -24,14 +24,14 @@ fun IncrementationDropdownMenu(
         if (isResetAvailable) {
             DropdownMenuItem(onClick = {
                 onResetClick()
-            }, content = {
+            }, text = {
                 Text(text = "Reset")
             })
         }
         (0..80).forEach { number ->
             DropdownMenuItem(onClick = {
                 onClick(number)
-            }, content = {
+            }, text = {
                 Text(text = number.toString())
             })
         }

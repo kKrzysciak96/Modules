@@ -1,10 +1,9 @@
 package com.example.module.presentation.components.date_picker
 
-import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -12,7 +11,6 @@ import androidx.compose.ui.unit.dp
 import java.util.*
 
 
-@Preview
 @Composable
 fun DatePickerDialog(
     initDate: Date = Date(),
@@ -41,7 +39,7 @@ fun DatePickerDialog(
                 month = month,
                 day = day.value,
                 modifier = Modifier
-                    .background(MaterialTheme.colors.primary)
+                    .background(MaterialTheme.colorScheme.primary)
                     .fillMaxWidth()
                     .padding(16.dp)
             )
@@ -65,7 +63,7 @@ fun DatePickerDialog(
                     )
                 }
                 CalendarDaysHeader("Mo", "Tu", "We", "Th", "Ft", "Sa", "Su")
-                Divider(Modifier.fillMaxWidth().height(1.dp).background(MaterialTheme.colors.primary))
+                Divider(Modifier.fillMaxWidth().height(1.dp).background(MaterialTheme.colorScheme.primary))
                 DatePickerDaysView(
                     year = year,
                     month = month,

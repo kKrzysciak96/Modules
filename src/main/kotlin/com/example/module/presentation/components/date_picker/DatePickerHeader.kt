@@ -1,8 +1,8 @@
 package com.example.module.presentation.components.date_picker
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,8 +22,8 @@ fun DatePickerHeader(year: Int, month: Int, day: Int, modifier: Modifier = Modif
                     year, month, day
                 ).time
             ),
-            color = MaterialTheme.colors.onPrimary,
-            style = MaterialTheme.typography.h6,
+            color = MaterialTheme.colorScheme.onPrimary,
+            style = MaterialTheme.typography.headlineSmall,
             textAlign = TextAlign.Center,
         )
     }

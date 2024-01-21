@@ -4,13 +4,12 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,7 +24,6 @@ fun YearSelector(
     modifier: Modifier = Modifier
 ) {
     var expandYearList by remember { mutableStateOf(false) }
-    val scrollState = rememberScrollState()
 
     Row(
         modifier = modifier.clickable { expandYearList = true },
@@ -36,18 +34,20 @@ fun YearSelector(
         Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = null)
 
         DropdownMenu(
-            scrollState = scrollState,
+
             expanded = expandYearList,
             onDismissRequest = { expandYearList = false }
         ) {
 
             (minYear..maxYear).forEach { y ->
-                DropdownMenuItem(onClick = {
-                    onValueChange(y)
-                    expandYearList = false
-                }) {
-                    Text(text = y.toString())
-                }
+                DropdownMenuItem(
+                    onClick = {
+                        onValueChange(y)
+                        expandYearList = false
+                    },
+                    text = {
+                        Text(text = y.toString())
+                    })
             }
         }
     }

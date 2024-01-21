@@ -6,10 +6,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Sort
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,7 +31,7 @@ import java.time.LocalDate
 import java.util.*
 
 
-@OptIn(InternalAPI::class)
+@OptIn(InternalAPI::class, ExperimentalMaterial3Api::class)
 @Composable
 fun SearchView(
     onEvent: (MainScreenEvents) -> Unit,
