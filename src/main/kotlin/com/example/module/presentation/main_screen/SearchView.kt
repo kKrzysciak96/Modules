@@ -37,7 +37,6 @@ fun SearchView(
     onEvent: (MainScreenEvents) -> Unit,
     state: MainScreenState,
     uiEvent: Flow<UiEvent>,
-    snackBarHostState: SnackbarHostState,
 ) {
     Box(
         modifier = Modifier.fillMaxSize(),

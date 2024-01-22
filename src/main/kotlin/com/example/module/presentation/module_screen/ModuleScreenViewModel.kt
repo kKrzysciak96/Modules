@@ -1,6 +1,7 @@
 package com.example.module.presentation.module_screen
 
 import com.example.core.utils.UiEvent
+import com.example.core.utils.UiText
 import com.example.module.domain.model.ModuleDomain
 import com.example.module.domain.use_cases.ModuleUseCases
 import com.example.module.presentation.utils.ModuleScreenEvents
@@ -88,14 +89,14 @@ class ModuleScreenViewModel(
                 )
                 update(event.module)
                 newModule = event.module
-//                job = null
-//                job = viewModelScope.launch {
-//                    _uiEvent.send(
-//                        UiEvent.ShowSnackBar(
-//                            UiText.StringResource(R.string.module_saved)
-//                        )
-//                    )
-//                }
+                job = null
+                job = viewModelScope.launch {
+                    _uiEvent.send(
+                        UiEvent.ShowSnackBar(
+                            UiText.DynamicString("Module has been Saved")
+                        )
+                    )
+                }
             }
 
             is ModuleScreenEvents.OnNameEntered -> {
@@ -120,6 +121,17 @@ class ModuleScreenViewModel(
             ModuleScreenEvents.OnFontSizeMenuDismissRequest -> {
                 _state.value = state.value.copy(isTextDropdownMenuVisible = false)
             }
+
+            ModuleScreenEvents.OnGroupToggleButtonClick -> {
+                _state.value = state.value.copy(isGroupUpdateOn = !state.value.isGroupUpdateOn)
+            }
+
+            ModuleScreenEvents.OnGroupSaveButtonClick -> {
+                _state.value = state.value.copy(
+                    isCommentEditEnabled = false, isNameEditEnabled = false
+                )
+                groupUpdate()
+            }
         }
     }
 
@@ -128,6 +140,19 @@ class ModuleScreenViewModel(
         job = viewModelScope.launch {
             useCases.addModuleUseCase(module)
 
+        }
+    }
+
+    private fun groupUpdate() {
+        job = null
+        job = viewModelScope.launch {
+            state.value.module?.let { currentModule ->
+                val modulesToUpdate =
+                    useCases.getModulesByNameUseCase(currentModule.name).map {
+                        it.copy(comment = currentModule.comment)
+                    }
+                useCases.addModulesUseCase(modulesToUpdate)
+            }
         }
     }
 }

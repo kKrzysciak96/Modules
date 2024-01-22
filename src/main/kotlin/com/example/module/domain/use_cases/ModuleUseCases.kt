@@ -15,4 +15,5 @@ data class ModuleUseCases(
     val updateUndoListUseCase: UpdateUndoListUseCase,
     val saveLastCardUseCase: SaveLastCardUseCase,
     val loadLastCardUseCase: LoadLastCardUseCase,
+    val getModulesByNameUseCase: GetModulesByNameUseCase,
 )

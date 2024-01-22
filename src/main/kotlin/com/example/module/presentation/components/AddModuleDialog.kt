@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogState
 import androidx.compose.ui.window.DialogWindow
 import androidx.compose.ui.window.rememberDialogState
-import com.example.core.ui.colorDarkGreen
+import com.example.core.ui.Purple40
 import com.example.module.presentation.model.ModuleDisplayable
 
 @Composable
@@ -88,7 +88,7 @@ fun AddModuleDialog(
                 OutlinedButton(
                     modifier = Modifier.padding(10.dp).align(Alignment.CenterHorizontally),
                     shape = RoundedCornerShape(30.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = colorDarkGreen),
+                    colors = ButtonDefaults.buttonColors(containerColor = Purple40),
                     border = BorderStroke(width = 1.dp, color = Color.DarkGray),
                     onClick = { onSaveButtonClick() })
                 {

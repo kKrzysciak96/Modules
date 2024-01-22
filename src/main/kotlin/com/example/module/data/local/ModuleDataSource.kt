@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface ModuleDataSource {
     suspend fun getModuleById(id: String): ModuleEntity?
+    suspend fun getModulesByName(name: String): List<ModuleEntity>
     fun getModulesFlow(): Flow<List<ModuleEntity>>
     suspend fun getModules(): List<ModuleEntity>
     suspend fun addModule(module: ModuleEntity)

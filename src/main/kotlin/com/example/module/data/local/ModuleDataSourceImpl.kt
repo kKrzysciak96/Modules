@@ -18,6 +18,12 @@ class ModuleDataSourceImpl(private val db: ModuleDb) : ModuleDataSource {
         }
     }
 
+    override suspend fun getModulesByName(name: String): List<ModuleEntity> {
+        return withContext(Dispatchers.IO) {
+            queries.getModulesByName(name).executeAsList()
+        }
+    }
+
     override suspend fun getModules(): List<ModuleEntity> {
         return queries.getAllModules().executeAsList()
     }

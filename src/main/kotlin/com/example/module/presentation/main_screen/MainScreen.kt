@@ -27,11 +27,11 @@ fun MainScreen(
                     }
 
                     is UiEvent.ShowSnackBar -> {
-//                        snackBarHostState.currentSnackbarData?.dismiss()
-//                        snackBarHostState.showSnackbar(
-//                            event.message.asString(context),
+                        snackBarHostState.currentSnackbarData?.dismiss()
+                        snackBarHostState.showSnackbar(
+                            event.message.asString(),
 //                            withDismissAction = true
-//                        )
+                        )
                     }
 
                     UiEvent.OnBack -> {
@@ -53,7 +53,6 @@ fun MainScreen(
                 onEvent = viewModel::onEvent,
                 state = state,
                 uiEvent = viewModel.uiEvent,
-                snackBarHostState = snackBarHostState,
 
                 )
         } else {
@@ -62,7 +61,6 @@ fun MainScreen(
                 state = state,
                 uiEvent = viewModel.uiEvent,
                 scope = scope,
-                snackBarHostState = snackBarHostState,
                 pagerState = pagerState,
                 dropDatabase = viewModel::dropDatabase,
                 isRedoButtonEnabled = viewModel::isRedoButtonEnabled,

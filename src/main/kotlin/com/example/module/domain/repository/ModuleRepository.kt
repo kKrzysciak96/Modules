@@ -20,7 +20,8 @@ interface ModuleRepository {
 
     fun getModulesFlow(): Flow<List<ModuleDomain>>
 
-    suspend fun getModule(id: UUID): ModuleDomain
+    suspend fun getModuleById(id: UUID): ModuleDomain
+    suspend fun getModulesByName(name: String): List<ModuleDomain>
 
     suspend fun dropDatabase()
 

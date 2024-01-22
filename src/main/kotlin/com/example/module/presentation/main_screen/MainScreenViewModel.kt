@@ -29,9 +29,6 @@ class MainScreenViewModel(
 
     private val _state = MutableStateFlow(
         MainScreenState(
-//            calendarState = UseCaseState(
-//                onDismissRequest = { onEvent(MainScreenEvents.OnCalendarDialogDismiss) },
-//            ),
             searchOptions = SearchOptions.Contains(SearchOrder.Descending)
         )
     )
@@ -84,11 +81,11 @@ class MainScreenViewModel(
                 val module = event.module
                 try {
                     if (module.name.isBlank()) {
-//                        throw CustomException(uiTextMessage = UiText.StringResource(R.string.name_error))
+                        throw CustomException(uiTextMessage = UiText.DynamicString("Name can not be empty"))
                     }
                     if (!module.incrementation.isDigitsOnly() || module.incrementation.isEmpty()) {
 
-//                        throw CustomException(uiTextMessage = UiText.StringResource(R.string.number_error))
+                        throw CustomException(uiTextMessage = UiText.DynamicString("Invalid number"))
                     }
                     onEvent(MainScreenEvents.OnAddModuleDialogDismiss)
                     job = null

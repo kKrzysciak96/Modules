@@ -55,6 +55,7 @@ val featureModule = module {
     factory { UpdateUndoListUseCase() }
     factory { SaveLastCardUseCase(get()) }
     factory { LoadLastCardUseCase(get()) }
+    factory { GetModulesByNameUseCase(get()) }
 
     single<UndoHelper> { UndoHelper() }
     factory<ModuleUseCases> {
@@ -72,11 +73,12 @@ val featureModule = module {
             get(),
             get(),
             get(),
+            get(),
             get()
         )
     }
 
-    factory { MainScreenViewModel(get(), get()) }
+    single { MainScreenViewModel(get(), get()) }
     factory { ModuleScreenViewModel(get(), get()) }
     factory { AllModulesPreviewScreenViewModel(get(), get()) }
 

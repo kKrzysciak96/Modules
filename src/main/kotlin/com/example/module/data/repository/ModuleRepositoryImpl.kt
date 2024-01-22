@@ -21,18 +21,6 @@ class ModuleRepositoryImpl(
     private val customPreferences: CustomPreferences,
 ) : ModuleRepository {
 
-    //        override suspend fun getModules(): Flow<ApiResult> {
-//        return flow {
-//            emit(ApiResult.Loading)
-//            try {
-//                val remoteData = remoteDataBase.fetchModulesFromRemote().map { it.toModule() }
-//                emit(ApiResult.Success(remoteData))
-//            } catch (e: Exception) {
-//                emit(ApiResult.Error(e.message))
-//            }
-//        }
-//    }
-
     override suspend fun editModule(module: ModuleDomain) {
         localDataBase.addModule(module.toModuleEntity())
     }
@@ -59,8 +47,12 @@ class ModuleRepositoryImpl(
         }
     }
 
-    override suspend fun getModule(id: UUID): ModuleDomain {
+    override suspend fun getModuleById(id: UUID): ModuleDomain {
         return localDataBase.getModuleById(id.toString())!!.toModuleDomain()
+    }
+
+    override suspend fun getModulesByName(name: String): List<ModuleDomain> {
+        return localDataBase.getModulesByName(name).map { it.toModuleDomain() }
     }
 
     override suspend fun dropDatabase() {

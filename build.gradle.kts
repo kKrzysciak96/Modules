@@ -3,14 +3,15 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 
 plugins {
-    kotlin("jvm") version "1.8.10"
-    id("org.jetbrains.compose") version "1.6.0-dev1296"
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.8.10"
+    kotlin("jvm") version "1.9.21"
+    id("org.jetbrains.compose") version "1.5.11"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.8.20"
     id("app.cash.sqldelight") version "2.0.0"
 }
 
 group = "org.example"
 version = "1.0"
+
 
 repositories {
     google()
@@ -29,6 +30,8 @@ sqldelight {
 }
 
 dependencies {
+//    implementation("org.jetbrains.compose:compose-gradle-plugin:1.5.1")
+
     implementation(compose.desktop.currentOs)
 
     implementation("io.github.jan-tennert.supabase:postgrest-kt:0.7.6")
@@ -50,7 +53,6 @@ dependencies {
     implementation(compose.materialIconsExtended)
     implementation(compose.material3)
 
-
     val richerTextEditorVer = "1.0.0-rc01"
 
     implementation("com.mohamedrejeb.richeditor:richeditor-compose:$richerTextEditorVer")
@@ -68,16 +70,39 @@ dependencies {
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "18"
+
 }
 
 compose.desktop {
     application {
         mainClass = "MainKt"
+//        mainClass = "com.example.module.presentation.Main.kt"
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "Modules"
             packageVersion = "1.0.0"
+//            windows {
+//                // a version for all Windows distributables
+//                packageVersion = "1.0.0"
+//                // a version only for the msi package
+//                msiPackageVersion = "1.0.0"
+//                // a version only for the exe package
+//                exePackageVersion = "1.0.0"
+//            }
         }
     }
 }
+
+//tasks.jar {
+//    manifest {
+//        attributes["Main-Class"] = "MainKt"
+//    }
+//    configurations["compileClasspath"].forEach { file: File ->
+//        from(zipTree(file.absoluteFile))
+//    }
+//    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+//}
+
+
+
 

@@ -25,7 +25,7 @@ fun DatePickerButtonsRow(
             onClick = { onDismissRequest() }
         ) {
             Text(
-                text = "Anuluj"
+                text = "Close"
             )
         }
 

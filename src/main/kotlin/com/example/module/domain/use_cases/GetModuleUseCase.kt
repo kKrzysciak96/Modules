@@ -7,6 +7,6 @@ import java.util.*
 class GetModuleUseCase(private val repository: ModuleRepository) {
 
     suspend operator fun invoke(id: UUID): ModuleDomain {
-        return repository.getModule(id)
+        return repository.getModuleById(id)
     }
 }

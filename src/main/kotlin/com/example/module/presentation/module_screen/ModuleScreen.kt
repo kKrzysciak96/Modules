@@ -2,17 +2,17 @@ package com.example.module.presentation.module_screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Save
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.core.utils.UiEvent
 import com.example.module.presentation.components.ModuleCommentTextRow
@@ -42,11 +42,10 @@ fun ModuleScreen(
                 }
 
                 is UiEvent.ShowSnackBar -> {
-//                    snackBarHostState.currentSnackbarData?.dismiss()
-//                    snackBarHostState.showSnackbar(
-//                        message = event.message.asString(context),
-//                        withDismissAction = true
-//                    )
+                    snackBarHostState.currentSnackbarData?.dismiss()
+                    snackBarHostState.showSnackbar(
+                        message = event.message.asString(),
+                    )
                 }
             }
         }
@@ -63,6 +62,26 @@ fun ModuleScreen(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(40.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                OutlinedButton(onClick = { viewModel.onEvent(ModuleScreenEvents.OnGroupToggleButtonClick) }) {
+                    Text(
+                        text =
+
+                        if (state.value.isGroupUpdateOn) {
+                            "Turn off group update"
+                        } else {
+                            "Turn on group update"
+                        }
+
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.height(4.dp))
             state.value.module?.let { module ->
                 ModuleNameTextRow(
                     modifier = Modifier.fillMaxWidth(),
@@ -89,23 +108,6 @@ fun ModuleScreen(
             }
         }
 
-        FloatingActionButton(
-            shape = RoundedCornerShape(100.dp),
-            onClick = {
-                state.value.module?.let { module ->
-                    viewModel.onEvent(ModuleScreenEvents.OnModuleSaveButtonClick(module))
-                }
-            },
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(16.dp)
-        ) {
-            Icon(
-                imageVector = Icons.Default.Save,
-                contentDescription = null,
-                modifier = Modifier
-            )
-        }
 
         FloatingActionButton(
             shape = RoundedCornerShape(100.dp),
@@ -121,6 +123,61 @@ fun ModuleScreen(
                 contentDescription = null,
                 modifier = Modifier
             )
+        }
+
+        if (state.value.isGroupUpdateOn) {
+            FloatingActionButton(
+                shape = RoundedCornerShape(100.dp),
+                onClick = {
+                    state.value.module?.let { module ->
+                        viewModel.onEvent(ModuleScreenEvents.OnGroupSaveButtonClick)
+                    }
+                },
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(16.dp)
+            ) {
+
+                Icon(
+                    imageVector = Icons.Default.Save,
+                    contentDescription = null,
+                    modifier = Modifier.offset(6.dp, (-6).dp),
+                    tint = Color.Gray
+                )
+                Icon(
+                    imageVector = Icons.Default.Save,
+                    contentDescription = null,
+                    modifier = Modifier,
+                    tint = Color.DarkGray
+                )
+
+                Icon(
+                    imageVector = Icons.Default.Save,
+                    contentDescription = null,
+                    modifier = Modifier.offset((-6).dp, (6).dp),
+                    tint = Color.Black
+                )
+
+
+            }
+        } else {
+            FloatingActionButton(
+                shape = RoundedCornerShape(100.dp),
+                onClick = {
+                    state.value.module?.let { module ->
+                        viewModel.onEvent(ModuleScreenEvents.OnModuleSaveButtonClick(module))
+                    }
+                },
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(16.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Save,
+                    contentDescription = null,
+                    modifier = Modifier
+                )
+            }
         }
     }
 }

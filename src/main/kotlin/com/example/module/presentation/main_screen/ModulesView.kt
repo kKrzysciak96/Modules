@@ -10,7 +10,6 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerDefaults
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -18,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.core.extensions.calculateDateUponGivenHorizontalPagerPage
+import com.example.core.extensions.toDate
 import com.example.core.utils.UiEvent
 import com.example.module.presentation.components.*
 import com.example.module.presentation.components.date_picker.DatePickerDialog
@@ -28,6 +28,7 @@ import io.ktor.util.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import java.util.*
 
 
@@ -38,7 +39,6 @@ fun ModulesView(
     state: MainScreenState,
     uiEvent: Flow<UiEvent>,
     scope: CoroutineScope,
-    snackBarHostState: SnackbarHostState,
     pagerState: PagerState,
     dropDatabase: () -> Unit,
     isUndoButtonEnabled: () -> Boolean,
@@ -188,7 +188,7 @@ fun ModulesView(
 
         if (state.isCalendarVisible) {
             DatePickerDialog(
-                initDate = Date(),
+                initDate = state.newModuleToInsert?.epochDay?.let { LocalDate.ofEpochDay(it).toDate() } ?: Date(),
                 onDismissRequest = { onEvent(MainScreenEvents.OnCalendarDialogDismiss) },
                 onDateSelect = { date ->
                     onEvent(MainScreenEvents.OnPickDate(date.toLocalDateTime().toLocalDate()))
