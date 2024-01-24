@@ -4,12 +4,13 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.9.21"
+//    kotlin("multiplatform") version "1.9.21"
     id("org.jetbrains.compose") version "1.5.11"
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.8.20"
-    id("app.cash.sqldelight") version "2.0.0"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.21"
+    id("app.cash.sqldelight") version "2.0.1"
 }
 
-group = "org.example"
+group = "com.example"
 version = "1.0"
 
 
@@ -30,7 +31,6 @@ sqldelight {
 }
 
 dependencies {
-//    implementation("org.jetbrains.compose:compose-gradle-plugin:1.5.1")
 
     implementation(compose.desktop.currentOs)
 
@@ -44,8 +44,7 @@ dependencies {
 
     implementation("io.insert-koin:koin-core:$koinVersion")
 
-    val sqlDelightversion = "2.0.0"
-
+    val sqlDelightversion = "2.0.1"
     implementation("app.cash.sqldelight:sqlite-driver:$sqlDelightversion")
     implementation("app.cash.sqldelight:runtime:$sqlDelightversion")
     implementation("app.cash.sqldelight:coroutines-extensions:$sqlDelightversion")
@@ -69,26 +68,24 @@ dependencies {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "18"
-
+    kotlinOptions.jvmTarget = "17"
 }
 
 compose.desktop {
     application {
         mainClass = "MainKt"
-//        mainClass = "com.example.module.presentation.Main.kt"
         nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+            targetFormats(TargetFormat.Exe, TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "Modules"
             packageVersion = "1.0.0"
-//            windows {
-//                // a version for all Windows distributables
-//                packageVersion = "1.0.0"
-//                // a version only for the msi package
-//                msiPackageVersion = "1.0.0"
-//                // a version only for the exe package
-//                exePackageVersion = "1.0.0"
-//            }
+            windows {
+                // a version for all Windows distributables
+                packageVersion = "1.0.0"
+                // a version only for the msi package
+                msiPackageVersion = "1.0.0"
+                // a version only for the exe package
+                exePackageVersion = "1.0.0"
+            }
         }
     }
 }

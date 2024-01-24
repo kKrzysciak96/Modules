@@ -7,6 +7,7 @@ import com.example.ModuleDb
 class DriverFactory {
     fun createDriver(): SqlDriver {
         val driver: SqlDriver = JdbcSqliteDriver(url = "jdbc:sqlite:ModuleDb.db", schema = ModuleDb.Schema)
+//        val driver: SqlDriver = JdbcSqliteDriver(url = JdbcSqliteDriver.IN_MEMORY, schema = ModuleDb.Schema)
         return driver
     }
 }
