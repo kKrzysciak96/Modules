@@ -6,6 +6,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.*
 import com.example.core.utils.UiEvent
+import moe.tlaster.precompose.flow.collectAsStateWithLifecycle
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -14,7 +15,7 @@ fun MainScreen(
     viewModel: MainScreenViewModel,
     onNextScreen: (String) -> Unit
 ) {
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(
@@ -30,7 +31,7 @@ fun MainScreen(
                         snackBarHostState.currentSnackbarData?.dismiss()
                         snackBarHostState.showSnackbar(
                             event.message.asString(),
-//                            withDismissAction = true
+                            withDismissAction = true
                         )
                     }
 
@@ -53,7 +54,6 @@ fun MainScreen(
                 onEvent = viewModel::onEvent,
                 state = state,
                 uiEvent = viewModel.uiEvent,
-
                 )
         } else {
             ModulesView(

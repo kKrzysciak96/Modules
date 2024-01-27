@@ -196,22 +196,7 @@ fun SearchView(
             }
         }
     }
-//    CalendarDialog(
-//        state = state.calendarState,
-//        selection = CalendarSelection.Date(
-//            onNegativeClick = {
-//                onEvent(MainScreenEvents.OnCalendarDialogDismiss)
-//            },
-//            onSelectDate = { date ->
-//                onEvent(MainScreenEvents.OnPickDate(date))
-//            },
-//            selectedDate = state.newModuleToInsert?.epochDay?.let { LocalDate.ofEpochDay(it) }
-//        ),
-//        config = CalendarConfig(
-//            monthSelection = true,
-//            yearSelection = true,
-//        )
-//    )
+
     if (state.isAddModuleDialogVisible) {
         state.newModuleToInsert?.let {
             AddModuleDialog(

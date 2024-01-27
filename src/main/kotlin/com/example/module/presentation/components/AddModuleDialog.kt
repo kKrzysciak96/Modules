@@ -73,7 +73,7 @@ fun AddModuleDialog(
                     placeholderText = "Enter Comment"
                 )
                 CustomModuleDialogRow(
-                    label = "Incrementation",
+                    label = "Increment.",
                     text = module.incrementation.toString(),
                     modifier = Modifier
                         .fillMaxWidth()
@@ -90,7 +90,8 @@ fun AddModuleDialog(
                     shape = RoundedCornerShape(30.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Purple40),
                     border = BorderStroke(width = 1.dp, color = Color.DarkGray),
-                    onClick = { onSaveButtonClick() })
+                    onClick = onSaveButtonClick
+                )
                 {
                     Text(
                         text = "SAVE",

@@ -34,6 +34,7 @@ class MainScreenViewModel(
     )
     val state = _state.asStateFlow()
 
+
     private var job: Job? = null
 
     private val _uiEvent = Channel<UiEvent>()
@@ -57,6 +58,8 @@ class MainScreenViewModel(
 
             is MainScreenEvents.OnCalendarDialogDismiss -> {
                 _state.value = state.value.copy(newModuleToInsert = null, isCalendarVisible = false)
+
+
             }
 
             is MainScreenEvents.OnAddButtonClick -> {
@@ -68,13 +71,14 @@ class MainScreenViewModel(
                     id = UUID.randomUUID(),
                     timeStamp = System.currentTimeMillis()
                 )
-                _state.value = state.value.copy(newModuleToInsert = module)
-                _state.value = state.value.copy(isAddModuleDialogVisible = true)
+                _state.value = state.value.copy(newModuleToInsert = module, isAddModuleDialogVisible = true)
+
+
             }
 
             MainScreenEvents.OnAddModuleDialogDismiss -> {
-                _state.value = state.value.copy(newModuleToInsert = null)
-                _state.value = state.value.copy(isAddModuleDialogVisible = false)
+                _state.value = state.value.copy(newModuleToInsert = null, isAddModuleDialogVisible = false)
+
             }
 
             is MainScreenEvents.OnSaveButtonClick -> {
@@ -128,17 +132,22 @@ class MainScreenViewModel(
             is MainScreenEvents.OnCommentTextEntered -> {
                 _state.value =
                     state.value.copy(newModuleToInsert = state.value.newModuleToInsert?.copy(comment = event.comment))
+
+
             }
 
             is MainScreenEvents.OnIncrementationEntered -> {
                 _state.value = state.value.copy(
                     newModuleToInsert = state.value.newModuleToInsert?.copy(incrementation = event.incrementationNumber)
                 )
+
             }
 
             is MainScreenEvents.OnNameTextEntered -> {
                 _state.value =
                     state.value.copy(newModuleToInsert = state.value.newModuleToInsert?.copy(name = event.name))
+
+
             }
 
             is MainScreenEvents.OnLongModulePress -> {
@@ -233,6 +242,7 @@ class MainScreenViewModel(
                 job = null
                 job = viewModelScope.launch {
                     onAddNewIncrementationFromDate(event.module, state.value.newModuleToInsert!!)
+
                 }
             }
 
@@ -261,6 +271,7 @@ class MainScreenViewModel(
 
             is MainScreenEvents.ActionAddNewIncrementationFromDate -> {
                 _state.value = state.value.copy(newModuleToInsert = event.module, isCalendarVisible = true)
+
             }
 
             is MainScreenEvents.OnToggleSkipped -> {

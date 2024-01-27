@@ -45,6 +45,7 @@ fun ModuleScreen(
                     snackBarHostState.currentSnackbarData?.dismiss()
                     snackBarHostState.showSnackbar(
                         message = event.message.asString(),
+                        withDismissAction = true
                     )
                 }
             }
