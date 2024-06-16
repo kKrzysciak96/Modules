@@ -20,6 +20,7 @@ import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest
 import org.koin.dsl.module
+import kotlin.time.Duration.Companion.seconds
 
 
 val featureModule = module {
@@ -30,6 +31,7 @@ val featureModule = module {
             supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZudG9mZmZtZHBqdnF5d2VmY2hiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDE3MDIyNTQsImV4cCI6MjAxNzI3ODI1NH0.1o-lzmwPyCvV5fVAKzhqD8sHHeZg7vCfT8HZBrD5XII"
         ) {
             install(Postgrest)
+            requestTimeout = 50.seconds
         }
     }
 

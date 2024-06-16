@@ -8,15 +8,18 @@ class RemoteSupaDatabaseImpl(private val client: SupabaseClient) :
     RemoteDatabase<SupabaseModuleDto> {
 
     override suspend fun fetchModulesFromRemote(): List<SupabaseModuleDto> {
-
-        val dataResponse = client.postgrest["test"].select()
+        val dataResponse = client.postgrest["modules"].select()
+//        val dataResponse = client.postgrest["test"].select()
         val data = dataResponse.decodeList<SupabaseModuleDto>()
         return data
     }
 
     override suspend fun pushModulesToRemote(modules: List<SupabaseModuleDto>) {
-        client.postgrest["test"].delete { SupabaseModuleDto::reset isExact true }
-        val result = client.postgrest["test"].insert(modules)
+        client.postgrest["modules"].delete { SupabaseModuleDto::reset isExact true }
+        val result = client.postgrest["modules"].insert(modules)
+
+//        client.postgrest["test"].delete { SupabaseModuleDto::reset isExact true }
+//        val result = client.postgrest["test"].insert(modules)
 
     }
 

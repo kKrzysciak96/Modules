@@ -9,6 +9,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -19,6 +20,7 @@ import androidx.compose.ui.window.DialogWindow
 import androidx.compose.ui.window.rememberDialogState
 import com.example.core.ui.Purple40
 import com.example.module.presentation.model.ModuleDisplayable
+import com.mohamedrejeb.richeditor.model.rememberRichTextState
 
 @Composable
 fun AddModuleDialog(
@@ -32,8 +34,20 @@ fun AddModuleDialog(
 
     ) {
     val state: DialogState = rememberDialogState(width = 600.dp, height = 600.dp)
-
-    DialogWindow(onCloseRequest = onDismissRequest,
+    val richNameTextState = rememberRichTextState()
+    val richCommentTextState = rememberRichTextState()
+    val richIncrementationTextState = rememberRichTextState()
+    LaunchedEffect(key1 = richNameTextState.annotatedString, block = {
+        onNameTextEntered(richNameTextState.annotatedString.text)
+    })
+    LaunchedEffect(key1 = richCommentTextState.annotatedString, block = {
+        onCommentTextEntered(richCommentTextState.annotatedString.text)
+    })
+    LaunchedEffect(key1 = richIncrementationTextState.annotatedString, block = {
+        onIncrementationTextEntered(richIncrementationTextState.annotatedString.text)
+    })
+    DialogWindow(
+        onCloseRequest = onDismissRequest,
         state = state,
         content = {
             Box(
@@ -55,33 +69,30 @@ fun AddModuleDialog(
 
                 CustomModuleDialogRow(
                     label = "Name",
-                    text = module.name,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 32.dp, start = 16.dp, end = 16.dp),
-                    onValueChange = onNameTextEntered,
                     placeholderText = "Enter Name",
-                    singleLine = true
+                    singleLine = true,
+                    richTextState = richNameTextState
                 )
                 CustomModuleDialogRow(
                     label = "Comment",
-                    text = module.comment,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 32.dp, start = 16.dp, end = 16.dp),
-                    onValueChange = onCommentTextEntered,
-                    placeholderText = "Enter Comment"
+                    placeholderText = "Enter Comment",
+                    richTextState = richCommentTextState
                 )
                 CustomModuleDialogRow(
                     label = "Increment.",
-                    text = module.incrementation.toString(),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 32.dp, start = 16.dp, end = 16.dp),
-                    onValueChange = onIncrementationTextEntered,
                     placeholderText = "Enter Incrementation",
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                    singleLine = true
+                    singleLine = true,
+                    richTextState = richIncrementationTextState
                 )
                 Spacer(modifier = Modifier.height(16.dp))
 
